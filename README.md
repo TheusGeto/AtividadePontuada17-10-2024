@@ -22,7 +22,7 @@ RH System
 5- Listar todos os funcionários
 0- Sair do sistema.
 
-Menu deve ser exibido apos as açoes
+Menu deve ser exibido apos as açoes do menu
 
 from sqlalchemy import create_engine, Column, String, Integer
 from sqlalchemy.orm import sessionmaker, declarative_base

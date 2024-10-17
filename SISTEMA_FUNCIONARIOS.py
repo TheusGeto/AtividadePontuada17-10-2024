@@ -16,16 +16,18 @@ Base = declarative_base()
 
 os.system("cls || clear")
 
-# Estrutura de dados:
-@dataclass
-# Classe para representar uma pessoa
-class Usuario(Base):
-    __tablename__ = "usuarios"
+# Classe para representar um funcionario
+class Funcionario(Base):
+    __tablename__ = "funcionarios"
 
-    id = Column("id", Integer, primary_key=True, autoincrement=True)
-    nome = Column("nome", String)
-    email = Column("email", String)
-    senha = Column("senha", String)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String)
+    idade = Column(Integer)
+    cpf = Column(String, unique=True)
+    setor = Column(String)
+    funcao = Column(String)
+    salario = Column(float)
+    telefone = Column(String)
 
     def __init__(self, nome, cpf, setor,funcao, telefone,  salario, sexo, idade):  # Inicia os atributos do objeto, define os valores iniciais dos dados
         self.nome = nome
@@ -36,8 +38,24 @@ class Usuario(Base):
         self.setor = setor
         self.funcao = funcao
         self.salario = salario
+
+Base.metadata.create_all(BASE_FUNCIONARIOS)  # Cria as tabelas no banco de dados
         
         
 
 def limpar_terminal():  # Para limpar o terminal
     os.system('cls' if os.name == 'nt' else 'clear')
+
+def adicionar_funcionario():
+    nome = input("Nome: ")
+    idade = int(input("Idade: "))
+    cpf = input("Cpf: ")
+    setor = input("Setor: ")
+    funcao = input("Função: ")
+    salario = float(input("Salario: "))
+    telefone = input("Telefone: ")
+
+    novo_funcionario = Funcionario(nome, idade, cpf, setor, funcao, salario, telefone)
+    session.add(novo_funcionario)
+    session.commit
+    print("Funcionário adicionado com sucesso!")
